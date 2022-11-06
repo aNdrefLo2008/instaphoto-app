@@ -34,10 +34,11 @@ function Sidebar() {
                         </div>
                     </Link>
                 </div>
-                
-                <Discover />
-                <SuggestedAccounts />
-                <Footer />
+                <div className='mr-16'>
+                    <Discover />
+                    <SuggestedAccounts />
+                    <Footer />
+                </div>
             </div>
         )}
     </div>

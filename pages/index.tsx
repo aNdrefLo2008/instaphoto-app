@@ -2,8 +2,11 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
+import Post from '../components/Post'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ data }: any) => {
+
+  console.log(data)
 
   return (
     <div className=''>
@@ -13,9 +16,22 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className=''>Hello</h1>
+
+    {data.map((post: any) => (
+      <Post post={post} key={post.id}/>
+    ))}
     </div>
   )
 }
 
 export default Home
+
+export async function getServerSideProps()  {
+  const res = await fetch('http://localhost:3000/api/discover');
+
+  const data = await res.json()
+
+  return {
+    props: { data }
+  }
+}

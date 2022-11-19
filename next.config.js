@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cdn.sanity.io',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.colebrookbossonsaunders.com',
+      },
     ],
   },
 }

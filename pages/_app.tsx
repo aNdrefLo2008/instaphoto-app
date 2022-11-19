@@ -15,10 +15,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <div className='h-screen'>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <div className='flex gap-2 -mt-2'>
-        <div className='md:block hidden w-[20vh]'>
+        <div className='md:block hidden w-[20%]'>
           <Sidebar />
         </div>
-        <div>
+        <div className='w-[80%] lg:w-[70%] md:-ml-20 flex flex-col justify-center'>
           <Component {...pageProps}/>
         </div>
       </div>

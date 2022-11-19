@@ -1,4 +1,4 @@
-export interface Video {
+export interface PostType {
     caption: string;
     video: {
       asset: {
@@ -27,37 +27,12 @@ export interface Video {
       };
     }[];
     userId: string;
-}
-
-export interface ImageType {
-    caption: string;
     image: {
       asset: {
         _id: string;
         url: string;
       };
     };
-    _id: string;
-    postedBy: {
-      _id: string;
-      userName: string;
-      image: string;
-    };
-    likes: {
-      postedBy: {
-        _id: string;
-        userName: string;
-        image: string;
-      };
-    }[];
-    comments: {
-      comment: string;
-      _key: string;
-      postedBy: {
-        _ref: string;
-      };
-    }[];
-    userId: string;
 }
   
 export interface IUser {

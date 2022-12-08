@@ -3,6 +3,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [darkMode, setDarkMode] = useState(false);
@@ -12,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [darkMode])
 
   return (
-    <div className='h-screen'>
+    <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <div className='flex gap-2 -mt-2'>
         <div className='md:block hidden w-[20%]'>
@@ -22,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps}/>
         </div>
       </div>
-    </div>
+    </GoogleOAuthProvider>
   )
 }
 

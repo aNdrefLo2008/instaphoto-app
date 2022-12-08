@@ -12,6 +12,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.colebrookbossonsaunders.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
 }

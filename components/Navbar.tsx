@@ -3,7 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '../public/logo.png'
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs'
-import { BiSearch } from 'react-icons/bi'
+import { GoogleLogin, googleLogout } from '@react-oauth/google'
+import { createOrGetUser } from '../utils';
+import useAuthStore from '../auth/authStore';
+import { AiOutlineLogout } from 'react-icons/ai'
 
 
 interface IProps {
@@ -13,6 +16,8 @@ interface IProps {
 
 const Navbar = ({ darkMode, setDarkMode }: IProps) => {
   
+  const { user, addUser, removeUser } = useAuthStore()
+
   useEffect(() => {
     const systemTheme = matchMedia("(prefers-color-scheme: dark)").matches;
 
@@ -23,7 +28,6 @@ const Navbar = ({ darkMode, setDarkMode }: IProps) => {
     }
 
   }, [])
-  
 
   return (
     <div className='flex justify-between items-center -mt-6 md:-mt-10 md:mx-4 mx-2'>
@@ -41,22 +45,43 @@ const Navbar = ({ darkMode, setDarkMode }: IProps) => {
             </button>
           </div>
         </div>
+        
+        {user ? <div className='flex gap-8 items-center'>
+          <Link href="/upload">
+            <button className='btn btn-primary cursor-pointer'>
+                UPLOAD
+            </button>
+          </Link>
+          <Link href="/account">
+            <Image width={42} height={42} src={user.image} className="cursor-pointer rounded-full"/>
+          </Link>
+            
+            <button onClick={() => {
+              googleLogout()
+              removeUser()
+              }} className='flex justify-center items-center btn rounded-full border-[1px] shadow-md'>
+              <AiOutlineLogout color="red" fontSize={18}/>
+            </button>
+            
+          </div>
 
-      <div>
-        <button className='mr-4' onClick={(() => {
-          // Log In / Sing In Logic
-        })}>
-          Google Account
-        </button>
-
-        <button onClick={() => {
-          setDarkMode((prev: boolean) => !prev);
-          }} className={`btn btn-primary cursor-pointer rounded-full mr-4 `}>
-          {darkMode ? <BsFillMoonStarsFill className='text-gray-300 md:h-6 md:w-6 w-4 h-4' /> :
-           <BsFillSunFill className='md:h-6 md:w-6 w-4 h-4' />}
-        </button>
+        : <div className='flex gap-6 items-center'>
+            <GoogleLogin
+              onSuccess={(response) => {
+                createOrGetUser(response, addUser)
+                }
+              }
+              onError={() => removeUser()}
+            />
+            <button onClick={() => {
+              setDarkMode((prev: boolean) => !prev);
+              }} className={`btn btn-primary cursor-pointer rounded-full mr-4 `}>
+              {darkMode ? <BsFillMoonStarsFill className='text-gray-300 md:h-6 md:w-6 w-4 h-4' /> :
+              <BsFillSunFill className='md:h-6 md:w-6 w-4 h-4' />}
+            </button>
+          </div>
+        }
       </div>
-    </div>
   )
 }
 

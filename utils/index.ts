@@ -1,6 +1,5 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import useAuthStore from '../auth/authStore';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 

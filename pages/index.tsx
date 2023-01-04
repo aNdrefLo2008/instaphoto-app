@@ -1,12 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Post from '../components/Post'
 import { PostType } from '../types'
 
 const Home: NextPage = ({ data }: any) => {
-
-  console.log(data)
 
   return (
     <>
@@ -17,8 +15,8 @@ const Home: NextPage = ({ data }: any) => {
       </Head>
 
       <div className='flex flex-col gap-6 items-center justify-center'>
-        {data.map((post: PostType) => (
-          <Post post={post} key={post._id}/>
+        {data.map((postDetails: PostType) => (
+          <Post postDetails={postDetails} key={postDetails._id}/>
         ))}
       </div>
     </>

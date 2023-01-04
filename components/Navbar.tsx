@@ -16,7 +16,7 @@ interface IProps {
 
 const Navbar = ({ darkMode, setDarkMode }: IProps) => {
   
-  const { user, addUser, removeUser } = useAuthStore()
+  const { user, addUser, removeUser } : {user: any, addUser: any, removeUser: any} = useAuthStore()
 
   useEffect(() => {
     const systemTheme = matchMedia("(prefers-color-scheme: dark)").matches;
@@ -48,12 +48,18 @@ const Navbar = ({ darkMode, setDarkMode }: IProps) => {
         
         {user ? <div className='flex gap-8 items-center'>
           <Link href="/upload">
-            <button className='btn btn-primary cursor-pointer'>
-                UPLOAD
-            </button>
+            <div>
+              <button className='btn btn-primary cursor-pointer'>
+                  UPLOAD
+              </button>
+            </div>
+            
           </Link>
           <Link href="/account">
+            <div>
             <Image width={42} height={42} src={user.image} className="cursor-pointer rounded-full"/>
+            </div>
+            
           </Link>
             
             <button onClick={() => {

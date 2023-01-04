@@ -5,17 +5,38 @@ import { NextPage } from 'next'
 import Link from 'next/link'
 import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs'
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi'
+import { BiCommentDetail } from 'react-icons/bi'
+import axios from 'axios'
+import useAuthStore from '../auth/authStore'
+import LikeButton from './likeButton'
+import { BASE_URL } from '../utils'
 
 interface IProps {
-    post: PostType
+    postDetails: PostType
 }
 
-const Post: NextPage<IProps> = ({ post }) => {
+const Post: NextPage<IProps> = ({ postDetails }) => {
 
+  const { user }: { user: any } = useAuthStore()
+  
+  const [post, setPost] = useState(postDetails);
   const [isHover, setIsHover] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
+  const [like, setLike] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleLike = async (like: boolean) => {
+    if(user) {
+      const { data } = await axios.put(`${BASE_URL}/api/like`, {
+        userId: user._id,
+        postId: post._id,
+        like
+      })
+
+      setPost({ ...post, likes: data.likes })
+    }
+  }
 
   const onVideoPress = () => {
     if(playing) {
@@ -78,8 +99,13 @@ const Post: NextPage<IProps> = ({ post }) => {
             </div>
         )}
         
-        <div>
-            ffsannsfa
+        <div className='m-4 flex justify-between'>
+            <div>
+              {user && (
+                <LikeButton likes={post.likes} handleLike={() => handleLike(true)} handleDislike={() => handleLike(false)} /> 
+              )} 
+            </div>
+            <BiCommentDetail className='mt-2' fontSize={40}></BiCommentDetail>
         </div>
     </div>
   )

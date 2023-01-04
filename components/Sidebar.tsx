@@ -36,7 +36,9 @@ function Sidebar() {
                 <div className='mr-10'>
                     <div className='btn btn-ghost btn-circle'>
                         <Link href="/discovery">
-                            <FaRegCompass className='w-6 h-6 cursor-pointer my-2'/>
+                            <div>
+                                <FaRegCompass className='w-6 h-6 cursor-pointer my-2'/>
+                            </div>
                         </Link>
                     </div>
                     <SuggestedAccounts />

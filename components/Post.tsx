@@ -23,12 +23,11 @@ const Post: NextPage<IProps> = ({ postDetails }) => {
   const [isHover, setIsHover] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
-  const [like, setLike] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleLike = async (like: boolean) => {
     if(user) {
-      const { data } = await axios.put(`${BASE_URL}/api/like`, {
+      const { data } = await axios.put(`${BASE_URL}/api/likes`, {
         userId: user._id,
         postId: post._id,
         like
@@ -100,12 +99,10 @@ const Post: NextPage<IProps> = ({ postDetails }) => {
         )}
         
         <div className='m-4 flex justify-between'>
-            <div>
-              {user && (
+            {user && (
                 <LikeButton likes={post.likes} handleLike={() => handleLike(true)} handleDislike={() => handleLike(false)} /> 
-              )} 
-            </div>
-            <BiCommentDetail className='mt-2' fontSize={40}></BiCommentDetail>
+            )} 
+            <BiCommentDetail className='mt-4' fontSize={36}></BiCommentDetail>
         </div>
     </div>
   )

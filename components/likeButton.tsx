@@ -14,7 +14,7 @@ function LikeButton({ likes, handleLike, handleDislike }: IProps) {
     const { userProfile }: any = useAuthStore()
     const filterLikes = likes?.filter(item => item._ref === userProfile?._id)
 
-    console.log(filterLikes)
+    console.log(likes)
 
     useEffect(() => {
         if(filterLikes?.length > 0) {
@@ -28,12 +28,12 @@ function LikeButton({ likes, handleLike, handleDislike }: IProps) {
     <div>
         <div className='flex flex-col justify-center items-center cursor-pointer'>
             {alreadyLiked ? (
-                <div onClick={handleDislike} className='bg-primary rounded-full p-2 md:p-4 text-[#F51997]'>
-                    <MdFavorite className='text-lg md:text-2xl text-[#F51997]'/>
+                <div onClick={handleDislike} className='rounded-full p-2 md:p-4 text-[#F51997]'>
+                    <MdFavorite className='text-xl md:text-3xl text-[#F51997]'/>
                 </div>
             ) : (
-                <div onClick={handleLike} className='bg-primary rounded-full p-2 md:p-4'>
-                    <MdFavorite className='text-lg md:text-2xl'/>
+                <div onClick={handleLike} className='rounded-full p-2 md:p-4'>
+                    <MdFavorite className='text-xl md:text-3xl'/>
                 </div>
             )}
             <p className='font-semibold'>{likes?.length || 0}</p>
